@@ -26,6 +26,7 @@ func main() {
 	} else {
 		fmt.Println("your guess is", g)
 	}
+
 }
 
 func processInput(arg []string) (bool, error) {
