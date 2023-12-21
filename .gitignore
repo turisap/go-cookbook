@@ -4,3 +4,4 @@ vendor
 
 *.txt
 *.data
+*_bin

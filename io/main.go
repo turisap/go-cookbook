@@ -98,7 +98,7 @@ func tempFile() {
 	// temporary DIR
 	fmt.Println(os.TempDir())
 
-	dir, err := os.MkdirTemp(os.TempDir(), "testy")
+	dir, err := os.MkdirTemp(os.TempDir(), "various")
 
 	if err != nil {
 		debug.Println("Cannot create a dir", err)

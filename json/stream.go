@@ -8,7 +8,12 @@ import (
 	"strings"
 )
 
-func main() {
+//func main() {
+//	readFromChanel()
+//}
+
+func readFromChanel() {
+
 	ch := make(chan Person)
 
 	go decode(ch)

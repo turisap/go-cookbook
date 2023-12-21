@@ -1,8 +1,9 @@
-package main
+package tests
 
 import (
 	"bytes"
 	"encoding/json"
+	"parse-json"
 	"testing"
 )
 
@@ -19,14 +20,14 @@ var luke []byte = []byte(
 }`)
 
 func BenchmarkUnmarshal(b *testing.B) {
-	var person Person
+	var person main.Person
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		json.Unmarshal(luke, &person)
 	}
 }
 func BenchmarkDecode(b *testing.B) {
-	var person Person
+	var person main.Person
 	data := bytes.NewReader(luke)
 	decoder := json.NewDecoder(data)
 	b.ResetTimer()
