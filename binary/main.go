@@ -1,10 +1,13 @@
 package main
 
 import (
+	"encoding/binary"
 	"encoding/gob"
 	"fmt"
 	"log"
+	"math"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -20,7 +23,79 @@ type Meter struct {
 
 func main() {
 	//encodeAndSave()
-	decode()
+	//decode()
+	//binaryWrite()
+	binaryRead()
+	binaryReadManual()
+}
+
+func binaryRead() {
+	var m Meter
+
+	f, err := os.Open("binary.txt")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = binary.Read(f, binary.BigEndian, &m)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("%v\n", &m)
+
+}
+
+func binaryReadManual() {
+	var m Meter
+
+	f, err := os.Open("binary.txt")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer f.Close()
+
+	buf := make([]byte, 24)
+	f.Read(buf)
+
+	m.Id = binary.BigEndian.Uint32(buf[:4])
+	m.Voltage = uint8(math.Float32frombits(binary.BigEndian.Uint32(buf[4:8])))
+	m.Current = uint8(math.Float32frombits(binary.BigEndian.Uint32(buf[8:12])))
+	m.Energy = binary.BigEndian.Uint32(buf[12:16])
+	m.Timestamp = int64(binary.BigEndian.Uint64(buf[16:]))
+
+	fmt.Println("\n" + strings.Repeat("@", 20))
+	fmt.Printf("%v\n", m)
+}
+
+func getSimpleMeter() Meter {
+	return Meter{
+		Id:        1,
+		Voltage:   32,
+		Current:   54,
+		Energy:    99,
+		Timestamp: time.Now().Unix(),
+	}
+}
+
+func binaryWrite() {
+	f, err := os.Create("binary.txt")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer f.Close()
+
+	err = binary.Write(f, binary.BigEndian, getSimpleMeter())
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func decode() {
@@ -55,6 +130,8 @@ func encodeAndSave() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	defer f.Close()
 
 	encoder := gob.NewEncoder(f)
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/binary"
 	"encoding/gob"
 	"encoding/json"
 	"io"
@@ -72,5 +73,11 @@ func BenchmarkDecodeGob(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		decoder.Decode(&data)
 		buf.Seek(0, 0)
+	}
+}
+
+func BenchmarkEncodeBinary(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		binary.Write(io.Discard, binary.BigEndian, reading)
 	}
 }
