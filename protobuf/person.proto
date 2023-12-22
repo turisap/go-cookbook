@@ -1,0 +1,17 @@
+syntax="proto3";
+
+package main;
+option go_package = "github.com/protocolbuffers/protobuf/examples/go/tutorialpb";
+
+message Person {
+  string name = 1;
+  int32 age = 2;
+  PhoneType phone= 3;
+}
+
+enum PhoneType {
+  PHONE_TYPE_UNSPECIFIED = 0;
+  PHONE_TYPE_MOBILE = 1;
+  PHONE_TYPE_HOME = 2;
+  PHONE_TYPE_WORK = 3;
+}
