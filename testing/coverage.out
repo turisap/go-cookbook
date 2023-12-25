@@ -1,0 +1,4 @@
+mode: set
+kirmath/main.go:5.24,8.2 2 1
+kirmath/main.go:10.19,11.13 1 1
+kirmath/main.go:11.13,12.22 1 0
