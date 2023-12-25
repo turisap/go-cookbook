@@ -1,9 +1,6 @@
 package kirmath
 
-import "time"
-
 func Add(x, y int) int {
-	time.Sleep(500 * time.Millisecond)
 	return x + y
 }
 
@@ -12,4 +9,11 @@ func Guess(n int) {
 		panic("blackjack!")
 	}
 
+}
+
+func Fibonacci(n int) int {
+	if n <= 1 {
+		return n
+	}
+	return Fibonacci(n-1) + Fibonacci(n-2)
 }
