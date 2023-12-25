@@ -83,3 +83,11 @@ func BenchmarkWriteEncoding(b *testing.B) {
 		encoder.Encode(person)
 	}
 }
+
+func BenchmarkResize(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		grid := load("monalisa.png")
+		resized := resize(grid, 3.0)
+		save("resized.png", resized)
+	}
+}
